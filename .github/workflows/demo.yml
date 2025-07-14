@@ -1,0 +1,39 @@
+name: Demo - Complex Workflow
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start step
+        run: echo "Starting workflow!"
+
+  conditional-success:
+    runs-on: ubuntu-latest
+    needs: start
+    steps:
+      - name: Simulate success branch
+        run: echo "This branch always succeeds"
+
+  conditional-failure:
+    runs-on: ubuntu-latest
+    needs: start
+    continue-on-error: true   # ❗ 실패해도 워크플로 계속 진행
+    steps:
+      - name: Simulate failure
+        run: |
+          echo "This will fail"
+          exit 1
+
+  final-step:
+    runs-on: ubuntu-latest
+    needs: [conditional-success, conditional-failure]
+    steps:
+      - name: All previous steps done
+        run: echo "Workflow finished even though one job failed"
+
