@@ -1,0 +1,33 @@
+name: Summarize CSV files
+
+on:
+  push:
+    paths:
+      - 'data/*.csv'
+  workflow_dispatch:
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Run summary
+        run: python scripts/summarize.py
+
+      - name: Commit summary
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add summary.txt
+          git commit -m "Update summary"
+          git push
