@@ -1,0 +1,14 @@
+data/sample.csv:
+         name      score        age
+count       4   4.000000   4.000000
+unique      4        NaN        NaN
+top     Alice        NaN        NaN
+freq        1        NaN        NaN
+mean      NaN  69.250000  30.500000
+std       NaN  31.436444   6.806859
+min       NaN  23.000000  24.000000
+25%       NaN  63.500000  27.000000
+50%       NaN  81.000000  29.000000
+75%       NaN  86.750000  32.500000
+max       NaN  92.000000  40.000000
+
