@@ -24,10 +24,14 @@ jobs:
       - name: Run summary
         run: python scripts/summarize.py
 
-      - name: Commit summary
+      - name: Commit and push
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
           git add summary.txt
           git commit -m "Update summary"
           git push
+
